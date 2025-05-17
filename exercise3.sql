@@ -22,6 +22,8 @@ from
 where
     name = 'DELETE_TIPO_ACTIVIDADES';
 
+----Ejecutar Procedimiento
+
 DECLARE message VARCHAR2 (100);
 
 BEGIN DELETE_TIPO_ACTIVIDADES (message);
