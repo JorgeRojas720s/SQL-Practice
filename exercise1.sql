@@ -1,8 +1,15 @@
 ---------------------------------Objetos--------------------------------------
-
 ------>Objetos para estado
 CREATE
 OR REPLACE TYPE estadoOBJ AS OBJECT (estado VARCHAR2 (15));
+
+--OBJETO para disco
+CREATE
+OR REPLACE TYPE discoOBJ AS OBJECT (disco VARCHAR2 (20));
+
+--Objeto para memoria
+CREATE
+OR REPLACE TYPE memoriaOBJ AS OBJECT (marca VARCHAR2 (20), capacidad NUMBER);
 
 ------>Objetos para torre
 CREATE
@@ -15,21 +22,6 @@ OR REPLACE TYPE torreOBJ AS OBJECT (
     disco discoOBJ,
     memoria memoriaOBJ
 );
-
---OBJETO para disco
-CREATE
-OR REPLACE TYPE discoOBJ AS OBJECT (
-    disco VARCHAR2 (20)
-);
-
-
---Objeto para memoria
-CREATE
-OR REPLACE TYPE memoriaOBJ AS OBJECT (
-    marca VARCHAR2 (20),
-    capacidad VARCHAR2(20)
-);
-
 
 ------>Objetos para monitor
 CREATE
@@ -81,7 +73,7 @@ CREATE OR REPLACE PROCEDURE INSERT_EQUIPOS(
 )
 IS
        v_estado_id NUMBER;
-       v_torre_id NUMBER
+       v_torre_id NUMBER;
        v_monitor_id NUMBER;
        v_teclado_id NUMBER;
        v_raton_id NUMBER;
@@ -142,6 +134,34 @@ RETURN v_estado_id;
 
 END;
 
+--FUNCTION DISCOS
+CREATE
+OR REPLACE FUNCTION INSERT_DISCOS (p_disco VARCHAR2) RETURN NUMBER IS v_disco_id NUMBER;
+
+BEGIN
+INSERT INTO
+    DISCOS (Disco_duro)
+VALUES
+    (p_disco) RETURNING ID INTO v_disco_id;
+
+RETURN v_disco_id;
+
+END;
+
+--FUNCTION MEMORIAS
+CREATE
+OR REPLACE FUNCTION INSERT_MEMORIAS (p_marca VARCHAR2, p_capacidad NUMBER) RETURN NUMBER IS v_memoria_id NUMBER;
+
+BEGIN
+INSERT INTO
+    MEMORIAS (Marca, Capacidad)
+VALUES
+    (p_marca, p_capacidad) RETURNING ID INTO v_memoria_id;
+
+RETURN v_memoria_id;
+
+END;
+
 --Funcion de Torres
 CREATE
 OR REPLACE FUNCTION INSERT_TORRES (
@@ -178,38 +198,6 @@ VALUES
 RETURN v_torre_id;
 
 END;
-
---FUNCTION DISCOS
-
-CREATE
-OR REPLACE FUNCTION INSERT_DISCOS (p_disco VARCHAR2) RETURN NUMBER IS v_disco_id;
-
-BEGIN
-INSERT INTO
-    DISCOS (Disco_duro)
-VALUES
-    (p_disco) RETURNING ID INTO v_disco_id;
-
-RETURN v_disco_id;
-
-END;
-
---FUNCTION MEMORIAS
-
-CREATE
-OR REPLACE FUNCTION INSERT_MEMORIAS (p_marca VARCHAR2, p_capacidad) RETURN NUMBER IS v_memoria_id;
-
-BEGIN
-INSERT INTO
-    MEMORIAS (Marca, Capacidad)
-VALUES
-    (p_marca, p_capacidad) RETURNING ID INTO v_memoria_id;
-
-RETURN v_memoria_id;
-
-END;
-
-
 
 --Funcion de Monitores
 CREATE
@@ -315,10 +303,21 @@ where
 order by
     object_name;
 
-DECLARE message VARCHAR(50);
+--mETER LO DATOS
+-- Corrección en la llamada al procedimiento:
+DECLARE message VARCHAR2 (50);
 
 BEGIN INSERT_EQUIPOS (
     estadoOBJ ('Bueno'),
+    torreOBJ (
+        'Ryzen7',
+        'SI',
+        '123',
+        'Tech',
+        '2018',
+        discoOBJ ('HDD'),
+        memoriaOBJ ('RedDragon', 10)
+    ),
     monitorOBJ ('Dragon', 'SI', '123', 'Tech', '2018'),
     tecladoOBJ ('SI', '123', 'Tech', '2018'),
     ratonOBJ ('SI', '123', 'Tech', '2018'),
@@ -329,3 +328,9 @@ BEGIN INSERT_EQUIPOS (
 dbms_output.put_line (message);
 
 END;
+
+---vER DATOS
+SELECT
+    *
+FROM
+    EQUIPOS;
