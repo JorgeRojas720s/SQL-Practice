@@ -1,7 +1,7 @@
 -----Funciones pRINCIPAL---------
 
 CREATE OR REPLACE FUNCTION GET_INFO_EQUIPO(
-    p_equipo_id IN NUMBER
+    p_equipo_id IN NUMBER,
 ) RETURN VARCHAR2 
 IS
     v_resultado_equipo VARCHAR2(5000);
@@ -38,17 +38,12 @@ BEGIN
     v_resultado_raton := GET_INFO_RATONES(v_raton_id);
     v_resultado_otro := GET_INFO_OTROS(v_otro_id);
 
-    v_resultado_equipo := '->Estado:' || CHR(10) ||
+    v_resultado_equipo := 'Resulado:' ||  CHR(10) ||
                         v_resultado_estado  ||  CHR(10) ||
-                        '->Torre:' || CHR(10) ||
                         v_resultado_torre ||  CHR(10) ||
-                        '->Monitor:' || CHR(10) ||
                         v_resultado_monitor ||  CHR(10) ||
-                        '->Teclado:' || CHR(10) ||
                         v_resultado_teclado ||  CHR(10) ||
-                        '->Raton:' || CHR(10) ||
                         v_resultado_raton ||  CHR(10) ||
-                        '->Otros:' || CHR(10) ||
                         v_resultado_otro ||  CHR(10);
  
     IF v_resultado_equipo IS NULL THEN
@@ -89,6 +84,58 @@ EXCEPTION
     WHEN OTHERS THEN
         RETURN 'Error al obtener la info de ESTADOS: ' || SQLERRM;
 END;
+
+
+----Funtion para obtener la torre
+CREATE OR REPLACE FUNCTION GET_INFO_TORRES(
+    p_torre_id IN NUMBER
+) RETURN VARCHAR2 
+IS
+    v_resultado VARCHAR2(1000);
+    v_resultado_disco VARCHAR2(1000);
+    v_resultado_memoria VARCHAR2(1000);
+    v_disco_id NUMBER;  
+    v_memoria_id NUMBER; 
+BEGIN
+
+
+    SELECT disco_id, memoria_id 
+    INTO v_disco_id, v_memoria_id 
+    FROM TORRES 
+    WHERE ID = p_torre_id;
+
+    v_resultado_disco := GET_INFO_DISCOS(disco_id);
+    v_resultado_memoria := GET_INFO_MEMORIAS(memoria_id);
+
+
+    FOR registro IN (
+        SELECT
+            procesador || ',' || CHR(10) ||
+            n_bien || ',' || CHR(10) ||
+            n_serie || ',' || CHR(10) ||
+            marca || ',' || CHR(10) ||
+            modelo  AS information
+        FROM
+            TORRES
+        WHERE
+            ID = p_torre_id
+    ) LOOP
+
+        v_resultado := v_resultado || registro.information || CHR(10) ||
+                    v_resultado_disco || CHR(10) || v_resultado_memoria;
+    END LOOP;
+
+    IF v_resultado IS NULL THEN
+        RETURN 'No se encontraron TORRES';
+    ELSE
+        RETURN v_resultado;
+    END IF;
+EXCEPTION
+    WHEN OTHERS THEN
+        RETURN 'Error al obtener la info de TORRES: ' || SQLERRM;
+END;
+
+
 
 
 
@@ -152,62 +199,6 @@ EXCEPTION
     WHEN OTHERS THEN
         RETURN 'Error al obtener la info de MEMORIAS: ' || SQLERRM;
 END;
-
-
-
-----Funtion para obtener la torre
-CREATE OR REPLACE FUNCTION GET_INFO_TORRES(
-    p_torre_id IN NUMBER
-) RETURN VARCHAR2 
-IS
-    v_resultado VARCHAR2(1000);
-    v_resultado_disco VARCHAR2(1000);
-    v_resultado_memoria VARCHAR2(1000);
-    v_disco_id NUMBER;  
-    v_memoria_id NUMBER; 
-BEGIN
-
-
-    SELECT disco_id, memoria_id 
-    INTO v_disco_id, v_memoria_id 
-    FROM TORRES 
-    WHERE ID = p_torre_id;
-
-    v_resultado_disco := GET_INFO_DISCOS(v_disco_id);
-    v_resultado_memoria := GET_INFO_MEMORIAS(v_memoria_id);
-
-
-    FOR registro IN (
-        SELECT
-            procesador || ',' || CHR(10) ||
-            n_bien || ',' || CHR(10) ||
-            n_serie || ',' || CHR(10) ||
-            marca || ',' || CHR(10) ||
-            modelo  AS information
-        FROM
-            TORRES
-        WHERE
-            ID = p_torre_id
-    ) LOOP
-
-        v_resultado := v_resultado || registro.information || CHR(10) || CHR(10) ||
-        '->Dsico:' || CHR(10) || v_resultado_disco || CHR(10) ||
-        '->Memoria:' || CHR(10) || v_resultado_memoria;
-    END LOOP;
-
-    IF v_resultado IS NULL THEN
-        RETURN 'No se encontraron TORRES';
-    ELSE
-        RETURN v_resultado;
-    END IF;
-EXCEPTION
-    WHEN OTHERS THEN
-        RETURN 'Error al obtener la info de TORRES: ' || SQLERRM;
-END;
-
-
-
-
 
 
 
@@ -344,29 +335,3 @@ EXCEPTION
     WHEN OTHERS THEN
         RETURN 'Error al obtener la info de OTROS: ' || SQLERRM;
 END;
-
-
-
-------Ver logs----
-select
-    *
-from
-    user_errors
-where
-    name = 'GET_INFO_EQUIPO';
-
-----EJECUTAR-----
-
-
-
-DECLARE
-    v_resultado VARCHAR2(5000);
-BEGIN
-    v_resultado := GET_INFO_EQUIPO(1); 
-    DBMS_OUTPUT.PUT_LINE('Resultado: ' || CHR(10) || v_resultado);
-END;
-
-
-
-
-
