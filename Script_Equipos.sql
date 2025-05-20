@@ -659,112 +659,136 @@ alter table TALLER_ACT disable constraint TALLER_X_TIPO_ACT_FK;
 alter table TALLER_ACT disable constraint TALLER_X_USUARIO_FK;
 
 prompt Loading ESTADOS...
-insert into ESTADOS (estado)
-values ('Activo');
-insert into ESTADOS (estado)
-values ('Inactivo');
+insert into ESTADOS (estado) values ('Activo');
+insert into ESTADOS (estado) values ('Inactivo');
+insert into ESTADOS (estado) values ('Reparación');
+insert into ESTADOS (estado) values ('Obsoleto');
 
 prompt Loading MONITORES...
-insert into MONITORES (n_bien, n_serie, tipo, marca, modelo)
-values ('MB001', 'SNM001', 'LED', 'Samsung', 'S24F350');
-insert into MONITORES (n_bien, n_serie, tipo, marca, modelo)
-values ('MB002', 'SNM002', 'LCD', 'LG', '22MK430H');
+insert into MONITORES (n_bien, n_serie, tipo, marca, modelo) values ('MB001', 'SNM001', 'LED', 'Samsung', 'S24F350');
+insert into MONITORES (n_bien, n_serie, tipo, marca, modelo) values ('MB002', 'SNM002', 'LCD', 'LG', '22MK430H');
+insert into MONITORES (n_bien, n_serie, tipo, marca, modelo) values ('MB003', 'SNM003', 'Curvo', 'Dell', 'S2721HGF');
+insert into MONITORES (n_bien, n_serie, tipo, marca, modelo) values ('MB004', 'SNM004', '4K', 'ASUS', 'VG289Q');
 
 prompt Loading OTROS...
-insert into OTROS (dispositivo, n_bien, n_serie, marca, modelo)
-values ('Impresora', 'OB001', 'SNO001', 'HP', 'LaserJet Pro');
-insert into OTROS (dispositivo, n_bien, n_serie, marca, modelo)
-values ('Escáner', 'OB002', 'SNO002', 'Epson', 'Perfection V39');
+insert into OTROS (dispositivo, n_bien, n_serie, marca, modelo) values ('Impresora', 'OB001', 'SNO001', 'HP', 'LaserJet Pro');
+insert into OTROS (dispositivo, n_bien, n_serie, marca, modelo) values ('Escáner', 'OB002', 'SNO002', 'Epson', 'Perf V39');
+insert into OTROS (dispositivo, n_bien, n_serie, marca, modelo) values ('Proyector', 'OB003', 'SNO003', 'BenQ', 'MH535');
+insert into OTROS (dispositivo, n_bien, n_serie, marca, modelo) values ('Altavoces', 'OB004', 'SNO004', 'Logitech', 'Z623');
 
 prompt Loading RATONES...
-insert into RATONES (n_bien, n_serie, marca, modelo)
-values ('RB001', 'SNR001', 'Logitech', 'M185');
-insert into RATONES (n_bien, n_serie, marca, modelo)
-values ('RB002', 'SNR002', 'Microsoft', 'Wireless Mobile Mouse 1850');
+insert into RATONES (n_bien, n_serie, marca, modelo) values ('RB001', 'SNR001', 'Logitech', 'M185');
+insert into RATONES (n_bien, n_serie, marca, modelo) values ('RB002', 'SNR002', 'Microsoft', 'Mouse 1850');
+insert into RATONES (n_bien, n_serie, marca, modelo) values ('RB003', 'SNR003', 'Razer', 'DeathAdder');
+insert into RATONES (n_bien, n_serie, marca, modelo) values ('RB004', 'SNR004', 'HP', 'X3000');
 
 prompt Loading TECLADOS...
-insert into TECLADOS (n_bien, n_serie, marca, modelo)
-values ('TB001', 'SNT001', 'Logitech', 'K120');
-insert into TECLADOS (n_bien, n_serie, marca, modelo)
-values ('TB002', 'SNT002', 'Microsoft', 'Wired Keyboard 600');
+insert into TECLADOS (n_bien, n_serie, marca, modelo) values ('TB001', 'SNT001', 'Logitech', 'K120');
+insert into TECLADOS (n_bien, n_serie, marca, modelo) values ('TB002', 'SNT002', 'Microsoft', 'KB600');
+insert into TECLADOS (n_bien, n_serie, marca, modelo) values ('TB003', 'SNT003', 'Corsair', 'K70');
+insert into TECLADOS (n_bien, n_serie, marca, modelo) values ('TB004', 'SNT004', 'Dell', 'KB216');
 
 prompt Loading DISCOS...
-insert into DISCOS (disco_duro)
-values ('SSD 500GB');
-insert into DISCOS (disco_duro)
-values ('HDD 1TB');
+insert into DISCOS (disco_duro) values ('SSD 500GB');
+insert into DISCOS (disco_duro) values ('HDD 1TB');
+insert into DISCOS (disco_duro) values ('NVMe 1TB');
+insert into DISCOS (disco_duro) values ('SSD 250GB');
 
 prompt Loading MEMORIAS...
-insert into MEMORIAS (marca, capacidad)
-values ('Kingston', 8);
-insert into MEMORIAS (marca, capacidad)
-values ('Corsair', 16);
+insert into MEMORIAS (marca, capacidad) values ('Kingston', 8);
+insert into MEMORIAS (marca, capacidad) values ('Corsair', 16);
+insert into MEMORIAS (marca, capacidad) values ('Crucial', 32);
+insert into MEMORIAS (marca, capacidad) values ('HyperX', 8);
 
 prompt Loading TORRES...
-insert into TORRES (n_bien, n_serie, marca, modelo, procesador, disco_id, memoria_id)
+insert into TORRES (n_bien, n_serie, marca, modelo, procesador, disco_id, memoria_id) 
 values ('TR001', 'SNT001', 'Dell', 'OptiPlex 3080', 'Intel i5', 1, 1);
-insert into TORRES (n_bien, n_serie, marca, modelo, procesador, disco_id, memoria_id)
+insert into TORRES (n_bien, n_serie, marca, modelo, procesador, disco_id, memoria_id) 
 values ('TR002', 'SNT002', 'HP', 'EliteDesk 800', 'Intel i7', 2, 2);
+insert into TORRES (n_bien, n_serie, marca, modelo, procesador, disco_id, memoria_id) 
+values ('TR003', 'SNT003', 'Lenovo', 'ThinkCentre', 'AMD R5', 3, 3);
+insert into TORRES (n_bien, n_serie, marca, modelo, procesador, disco_id, memoria_id) 
+values ('TR004', 'SNT004', 'Asus', 'ExpertCenter', 'Intel i3', 4, 4);
 
 prompt Loading EQUIPOS...
-insert into EQUIPOS (estado_id, torre_id, monitor_id, teclado_id, raton_id, otro_id)
+insert into EQUIPOS (estado_id, torre_id, monitor_id, teclado_id, raton_id, otro_id) 
 values (1, 1, 1, 1, 1, 1);
-insert into EQUIPOS (estado_id, torre_id, monitor_id, teclado_id, raton_id, otro_id)
+insert into EQUIPOS (estado_id, torre_id, monitor_id, teclado_id, raton_id, otro_id) 
 values (1, 2, 2, 2, 2, 2);
+insert into EQUIPOS (estado_id, torre_id, monitor_id, teclado_id, raton_id, otro_id) 
+values (3, 3, 3, 3, 3, 3);
+insert into EQUIPOS (estado_id, torre_id, monitor_id, teclado_id, raton_id, otro_id) 
+values (2, 4, 4, 4, 4, 4);
 
 prompt Loading TIPO_ACT...
-insert into TIPO_ACT (tipo)
-values ('Soporte');
-insert into TIPO_ACT (tipo)
-values ('Taller');
+insert into TIPO_ACT (tipo) values ('Soporte');
+insert into TIPO_ACT (tipo) values ('Taller');
+insert into TIPO_ACT (tipo) values ('Mantenim');
+insert into TIPO_ACT (tipo) values ('Instalac');
 
 prompt Loading GENEROS...
-insert into GENEROS (genero)
-values ('Masculino');
-insert into GENEROS (genero)
-values ('Femenino');
+insert into GENEROS (genero) values ('Masculino');
+insert into GENEROS (genero) values ('Femenino');
+insert into GENEROS (genero) values ('No bin');
+insert into GENEROS (genero) values ('Otro');
 
 prompt Loading ROLES...
-insert into ROLES (role)
-values ('Administrador');
-insert into ROLES (role)
-values ('Usuario');
+insert into ROLES (role) values ('Admin');
+insert into ROLES (role) values ('Usuario');
+insert into ROLES (role) values ('Técnico');
+insert into ROLES (role) values ('Supervis');
 
 prompt Loading USUARIOS...
-insert into USUARIOS (n_usuario, cedula, nombre, apellido, genero_id, contra, rol_id, correo)
+insert into USUARIOS (n_usuario, cedula, nombre, apellido, genero_id, contra, rol_id, correo) 
 values ('admin', '12345678', 'Juan', 'Pérez', 1, 'admin123', 1, 'juan.perez@example.com');
-insert into USUARIOS (n_usuario, cedula, nombre, apellido, genero_id, contra, rol_id, correo)
+insert into USUARIOS (n_usuario, cedula, nombre, apellido, genero_id, contra, rol_id, correo) 
 values ('user1', '87654321', 'María', 'Gómez', 2, 'user123', 2, 'maria.gomez@example.com');
+insert into USUARIOS (n_usuario, cedula, nombre, apellido, genero_id, contra, rol_id, correo) 
+values ('tecnico1', '11223344', 'Carlos', 'López', 1, 'tec123', 3, 'carlos.lopez@example.com');
+insert into USUARIOS (n_usuario, cedula, nombre, apellido, genero_id, contra, rol_id, correo) 
+values ('super1', '44332211', 'Ana', 'Martínez', 2, 'sup123', 4, 'ana.martinez@example.com');
 
 prompt Loading ACTIVIDADES...
-insert into ACTIVIDADES (usuario_id, tipo_id, equipo_id)
-values (1, 1, 1);
-insert into ACTIVIDADES (usuario_id, tipo_id, equipo_id)
-values (2, 2, 2);
+insert into ACTIVIDADES (usuario_id, tipo_id, equipo_id) values (1, 1, 1);
+insert into ACTIVIDADES (usuario_id, tipo_id, equipo_id) values (2, 2, 2);
+insert into ACTIVIDADES (usuario_id, tipo_id, equipo_id) values (3, 3, 3);
+insert into ACTIVIDADES (usuario_id, tipo_id, equipo_id) values (4, 4, 4);
 
 prompt Loading FEEDBACK...
-insert into FEEDBACK (usuario_id, comentarios)
+insert into FEEDBACK (usuario_id, comentarios) 
 values (1, 'El servicio fue excelente, muy rápido y eficiente');
-insert into FEEDBACK (usuario_id, comentarios)
+insert into FEEDBACK (usuario_id, comentarios) 
 values (2, 'Buen servicio pero podrían mejorar los tiempos de respuesta');
+insert into FEEDBACK (usuario_id, comentarios) 
+values (3, 'El técnico resolvió el problema rápidamente');
+insert into FEEDBACK (usuario_id, comentarios) 
+values (4, 'Necesitan más personal para atender la demanda');
 
 prompt Loading HISTORIAL...
-insert into HISTORIAL (actividad_id, equipo_id)
-values (1, 1);
-insert into HISTORIAL (actividad_id, equipo_id)
-values (2, 2);
+insert into HISTORIAL (actividad_id, equipo_id) values (1, 1);
+insert into HISTORIAL (actividad_id, equipo_id) values (2, 2);
+insert into HISTORIAL (actividad_id, equipo_id) values (3, 3);
+insert into HISTORIAL (actividad_id, equipo_id) values (4, 4);
 
 prompt Loading SOPORTE_ACT...
-insert into SOPORTE_ACT (usuario_id, actividad_id, tipo_id, fecha, origen, localidad, atencion, descripcion, tiempo_solucion, solucion)
+insert into SOPORTE_ACT (usuario_id, actividad_id, tipo_id, fecha, origen, localidad, atencion, descripcion, tiempo_solucion, solucion) 
 values (1, 1, 1, SYSTIMESTAMP, 'Remoto', 'Oficina Central', 'Inmediata', 'Problema con conexión a red', '1 hora', 'Se reconfiguró la red');
-insert into SOPORTE_ACT (usuario_id, actividad_id, tipo_id, fecha, origen, localidad, atencion, descripcion, tiempo_solucion, solucion)
+insert into SOPORTE_ACT (usuario_id, actividad_id, tipo_id, fecha, origen, localidad, atencion, descripcion, tiempo_solucion, solucion) 
 values (2, 2, 1, SYSTIMESTAMP, 'Presencial', 'Sucursal Norte', 'Programada', 'Instalación de software', '2 horas', 'Se instaló el paquete Office');
+insert into SOPORTE_ACT (usuario_id, actividad_id, tipo_id, fecha, origen, localidad, atencion, descripcion, tiempo_solucion, solucion) 
+values (3, 3, 1, SYSTIMESTAMP, 'Remoto', 'Oficina Sur', 'Urgente', 'Equipo no enciende', '4 horas', 'Se cambió fuente de poder');
+insert into SOPORTE_ACT (usuario_id, actividad_id, tipo_id, fecha, origen, localidad, atencion, descripcion, tiempo_solucion, solucion) 
+values (4, 4, 1, SYSTIMESTAMP, 'Presencial', 'Sucursal Este', 'Programada', 'Actualización de sistema', '3 horas', 'Se actualizó Windows y drivers');
 
 prompt Loading TALLER_ACT...
-insert into TALLER_ACT (usuario_id, actividad_id, tipo_id, fecha, origen, localidad, proceso, descripcion)
+insert into TALLER_ACT (usuario_id, actividad_id, tipo_id, fecha, origen, localidad, proceso, descripcion) 
 values (1, 1, 2, SYSTIMESTAMP, 'Taller Central', 'Oficina Principal', 'Mantenimiento', 'Limpieza interna de torre');
-insert into TALLER_ACT (usuario_id, actividad_id, tipo_id, fecha, origen, localidad, proceso, descripcion)
+insert into TALLER_ACT (usuario_id, actividad_id, tipo_id, fecha, origen, localidad, proceso, descripcion) 
 values (2, 2, 2, SYSTIMESTAMP, 'Taller Secundario', 'Sucursal Sur', 'Reparación', 'Cambio de fuente de poder');
+insert into TALLER_ACT (usuario_id, actividad_id, tipo_id, fecha, origen, localidad, proceso, descripcion) 
+values (3, 3, 2, SYSTIMESTAMP, 'Taller Central', 'Oficina Principal', 'Actualización', 'Cambio de memoria RAM');
+insert into TALLER_ACT (usuario_id, actividad_id, tipo_id, fecha, origen, localidad, proceso, descripcion) 
+values (4, 4, 2, SYSTIMESTAMP, 'Taller Secundario', 'Sucursal Norte', 'Diagnóstico', 'Revisión de placa base');
 
 prompt Enabling foreign key constraints for TORRES...
 alter table TORRES enable constraint TORRE_X_DISCO_FK;
